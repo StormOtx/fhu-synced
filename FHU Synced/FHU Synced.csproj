@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Assets\Images\launcher-bg.png" />
+    <None Remove="Assets\Images\logo.png" />
+    <None Remove="Assets\Images\unknown.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +19,10 @@
 
   <ItemGroup>
     <Resource Include="Assets\Images\launcher-bg.png" />
+    <Resource Include="Assets\Images\logo.png" />
+    <Resource Include="Assets\Images\unknown.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

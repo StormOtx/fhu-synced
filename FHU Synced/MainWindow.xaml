@@ -16,8 +16,16 @@
         </Grid.RowDefinitions>
 
         <wpfui:TitleBar
-          Title="FHU Synced"
-          Grid.Row="0"/>
+            Icon="pack://application:,,,/Assets/Images/logo.png"
+            Title="FHU Synced"
+            Grid.Row="0">
+            <wpfui:TitleBar.Tray>
+                <wpfui:NotifyIcon
+                        Icon="pack://application:,,,/Assets/Images/logo.png"
+                        TooltipText="FHU Synced">
+                </wpfui:NotifyIcon>
+            </wpfui:TitleBar.Tray>
+        </wpfui:TitleBar>
 
         <Grid Grid.Row="1" Margin="0">
             <Grid.ColumnDefinitions>

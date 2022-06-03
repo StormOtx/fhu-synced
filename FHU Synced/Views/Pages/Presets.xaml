@@ -4,11 +4,35 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FHU_Synced.Views.Pages"
+      xmlns:uc="clr-namespace:FHU_Synced.Views.UserControls"
+      xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
+      xmlns:vm="clr-namespace:FHU_Synced.ViewModels"
+      xmlns:models="clr-namespace:FHU_Synced.Models"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Presets">
 
-    <Grid>
-        
+    <Page.DataContext>
+        <vm:PresetsVM />
+    </Page.DataContext>
+
+    <Grid Margin="0,64,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <wpfui:VirtualizingItemsControl
+            Height="auto"
+            Width="auto"
+            Grid.Row="0"
+            x:Name="PresetsGrid"
+            ItemsSource="{Binding LoadedPresets, Mode=OneWay}"
+            VirtualizingPanel.CacheLengthUnit="Pixel">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Preset}">
+                    <uc:PresetControl Margin="10" Height="250" Width="250" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </wpfui:VirtualizingItemsControl>
     </Grid>
 </Page>
