@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FHU_Synced.Settings" GeneratedClassName="URL">
+  <Profiles />
+  <Settings>
+    <Setting Name="PresetServerURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://192.168.1.23:3042</Value>
+    </Setting>
+    <Setting Name="GetAllPresetsTrailURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/all-presets</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -4,28 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FHU_Synced.Abstracts;
+using FHU_Synced.Interfaces;
 using FHU_Synced.Models;
 
 namespace FHU_Synced.ViewModels
 {
     public class PresetsVM : ANotifyPropertyChanged
     {
-        private List<Preset> _loadedPresets;
-        public List<Preset> LoadedPresets
+        readonly IPresetRepository _presetRepository;
+
+        private List<Preset> _unsyncedPresets;
+        public List<Preset> UnsyncedPresets
         {
-            get => _loadedPresets;
-            set => AssignAndNotifyPropertyChanged(ref _loadedPresets, value);
+            get => _unsyncedPresets;
+            set => AssignAndNotifyPropertyChanged(ref _unsyncedPresets, value);
         }
 
-        public PresetsVM()
+        public PresetsVM(IPresetRepository presetRepository)
         {
-            Preset defaultPreset = new Preset();
-            defaultPreset.Name = "sm0lcat_3.fhp";
+            this._presetRepository = presetRepository;
 
-            this.LoadedPresets = new List<Preset> { defaultPreset, defaultPreset, defaultPreset };
+            this.InitializePresets();
+        }
 
-            System.Diagnostics.Debug.WriteLine("Initialized default preset");
-            System.Diagnostics.Debug.WriteLine(this.LoadedPresets.ToString());
+        public async void InitializePresets()
+        {
+            this.UnsyncedPresets = (await this._presetRepository.GetPresets()).ToList();
         }
     }
 }

@@ -8,13 +8,11 @@
       xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
       xmlns:vm="clr-namespace:FHU_Synced.ViewModels"
       xmlns:models="clr-namespace:FHU_Synced.Models"
-      mc:Ignorable="d" 
+      xmlns:extensions="clr-namespace:FHU_Synced.Extensions"
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Presets">
-
-    <Page.DataContext>
-        <vm:PresetsVM />
-    </Page.DataContext>
+      Title="Presets"
+      DataContext="{extensions:DIResolver Type=vm:PresetsVM}">
 
     <Grid Margin="0,64,0,0">
         <Grid.ColumnDefinitions>
@@ -26,11 +24,11 @@
             Width="auto"
             Grid.Row="0"
             x:Name="PresetsGrid"
-            ItemsSource="{Binding LoadedPresets, Mode=OneWay}"
+            ItemsSource="{Binding UnsyncedPresets, Mode=OneWay}"
             VirtualizingPanel.CacheLengthUnit="Pixel">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:Preset}">
-                    <uc:PresetControl Margin="10" Height="250" Width="250" />
+                    <uc:PresetControl PresetData="{Binding}" Margin="10" Height="250" Width="250" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </wpfui:VirtualizingItemsControl>

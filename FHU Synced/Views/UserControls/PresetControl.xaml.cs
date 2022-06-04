@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FHU_Synced.Models;
 
 namespace FHU_Synced.Views.UserControls
 {
@@ -23,6 +24,17 @@ namespace FHU_Synced.Views.UserControls
         public PresetControl()
         {
             InitializeComponent();
+        }
+
+        public static readonly DependencyProperty PresetProperty = DependencyProperty.Register(
+                    "PresetData",
+                    typeof(Preset),
+                    typeof(PresetControl));
+
+        public Preset PresetData
+        {
+            get { return (Preset)GetValue(PresetProperty); }
+            set { SetValue(PresetProperty, value); }
         }
     }
 }
