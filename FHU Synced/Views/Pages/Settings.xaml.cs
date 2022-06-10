@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace FHU_Synced.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for Presets.xaml
+    /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class Presets : Page
+    public partial class Settings : Page
     {
-        public Presets()
+        public Settings()
         {
             InitializeComponent();
-        }
-
-        private void PresetControl_SyncClicked(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

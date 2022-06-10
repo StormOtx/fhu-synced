@@ -19,7 +19,7 @@ namespace FHU_Synced.Repositories
             this._client = new RestClient(options);
         }
 
-        public async Task<Preset[]> GetPresets(DateTime? lastUpdated)
+        public virtual async Task<Preset[]> GetPresets(DateTime? lastUpdated)
         {
             try
             {

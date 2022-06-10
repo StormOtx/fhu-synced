@@ -4,8 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="clr-namespace:FHU_Synced.Views.Pages"
-    xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
-    Title="FHU Unleashed"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="FHU Sync"
     Style="{StaticResource UiWindow}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -17,13 +17,27 @@
 
         <wpfui:TitleBar
             Icon="pack://application:,,,/Assets/Images/logo.png"
-            Title="FHU Synced"
+            Title="FHU Sync 1.0"
             Grid.Row="0">
             <wpfui:TitleBar.Tray>
                 <wpfui:NotifyIcon
                         Icon="pack://application:,,,/Assets/Images/logo.png"
-                        TooltipText="FHU Synced">
+                        TooltipText="FHU Sync">
+                    <wpfui:NotifyIcon.Menu>
+                        <ContextMenu>
+                            <MenuItem
+                                Header="Open"
+                                Icon="{x:Static wpfui:SymbolRegular.Folder28}"
+                                Tag="open" />
+                            <Separator />
+                            <MenuItem
+                                Header="Resync"
+                                Icon="{x:Static wpfui:SymbolRegular.ArrowClockwise24}"
+                                Tag="resync" />
+                        </ContextMenu>
+                    </wpfui:NotifyIcon.Menu>
                 </wpfui:NotifyIcon>
+
             </wpfui:TitleBar.Tray>
         </wpfui:TitleBar>
 
@@ -40,7 +54,7 @@
                 Frame="{Binding ElementName=RootFrame}">
                 <wpfui:NavigationStore.Items>
                     <wpfui:NavigationItem
-                                Content="Launcher"
+                                Content=" "
                                 Icon="Home24"
                                 Tag="dashboard"
                                 Page="{x:Type pages:Dashboard}"
@@ -70,6 +84,8 @@
                 <wpfui:NavigationStore.Footer>
                     <wpfui:NavigationItem
                         Content="Settings"
+                        Tag="settings"
+                        Page="{x:Type pages:Settings}"
                         Icon="Settings24" />
                 </wpfui:NavigationStore.Footer>
             </wpfui:NavigationStore>

@@ -8,29 +8,71 @@
       xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
       xmlns:vm="clr-namespace:FHU_Synced.ViewModels"
       xmlns:models="clr-namespace:FHU_Synced.Models"
+      xmlns:converters="clr-namespace:FHU_Synced.Converters"
       xmlns:extensions="clr-namespace:FHU_Synced.Extensions"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Presets"
       DataContext="{extensions:DIResolver Type=vm:PresetsVM}">
 
+    <Page.Resources>
+        <converters:InvertableBooleanToVisibilityConverter x:Key="InvBoolToVis"/>
+    </Page.Resources>
+
     <Grid Margin="0,64,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <wpfui:VirtualizingItemsControl
-            Height="auto"
-            Width="auto"
-            Grid.Row="0"
-            x:Name="PresetsGrid"
-            ItemsSource="{Binding UnsyncedPresets, Mode=OneWay}"
-            VirtualizingPanel.CacheLengthUnit="Pixel">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type models:Preset}">
-                    <uc:PresetControl PresetData="{Binding}" Margin="10" Height="250" Width="250" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </wpfui:VirtualizingItemsControl>
+        <TabControl Grid.Row="0" Margin="4,0,4,0">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Cursor="Hand" Text="{Binding Path=UnsyncedPresets.Count, StringFormat='Unsynced Presets ({0})'}" />
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Visibility="{Binding Path=IsLoadingRemote, Converter={StaticResource InvBoolToVis}}" Orientation="Vertical" VerticalAlignment="Center">
+                        <wpfui:ProgressRing IsIndeterminate="True" Progress="80" />
+                        <Label HorizontalAlignment="center" Content="Loading presets..." />
+                    </StackPanel>
+
+                    <Grid Grid.Row="0" Visibility="{Binding Path=IsLoadingRemote, Converter={StaticResource InvBoolToVis}, ConverterParameter=Inverted}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Visibility="{Binding Path=UnsyncedPresetsNotEmpty, Converter={StaticResource InvBoolToVis}, ConverterParameter=Inverted}"
+                               Grid.Row="0"
+                               Content="{Binding StatusText}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="36" />
+
+                        <wpfui:VirtualizingItemsControl
+                                Grid.Row="0"
+                                Visibility="{Binding Path=UnsyncedPresetsNotEmpty, Converter={StaticResource InvBoolToVis}}"
+                                x:Name="PresetList"
+                                Height="auto"
+                                Width="auto"
+                                ItemsSource="{Binding UnsyncedPresets, Mode=OneWay}"
+                                VirtualizingPanel.CacheLengthUnit="Pixel">
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:Preset}">
+                                    <uc:PresetControl PresetData="{Binding}" SyncClicked="PresetControl_SyncClicked" Margin="10" Height="250" Width="250" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </wpfui:VirtualizingItemsControl>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Cursor="Hand" Header="Installed Presets (0)">
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

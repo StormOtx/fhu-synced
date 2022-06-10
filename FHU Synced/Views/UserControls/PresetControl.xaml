@@ -5,9 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FHU_Synced.Views.UserControls"
              xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
-             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:FHU_Synced.ViewModels"
+             xmlns:converters="clr-namespace:FHU_Synced.Converters"
+             mc:Ignorable="d"
              d:DesignHeight="250" d:DesignWidth="250">
-    <Border BorderBrush="Black" BorderThickness="1,1,1,1" CornerRadius="30">
+
+    <UserControl.Resources>
+        <converters:InvertableBooleanToVisibilityConverter x:Key="InvBoolToVis"/>
+        <converters:PercentageToWidthConverter x:Key="PercentWidthConverter"/>
+        <converters:ByteSizeConverter x:Key="ByteSizeConverter"/>
+    </UserControl.Resources>
+
+    <Border x:Name="ParentContainer" BorderBrush="Black" BorderThickness="1,1,1,1" CornerRadius="30">
+        <Border.DataContext>
+            <vm:AssetDownloaderVM />
+        </Border.DataContext>
 
         <Border.Triggers>
             <EventTrigger RoutedEvent="MouseEnter">
@@ -42,12 +54,32 @@
 
             <Border x:Name="clipMask" CornerRadius="30">
                 <Border.Background>
-                    <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/unknown.png" />
+                    <ImageBrush x:Name="PresetThumbnail" Stretch="UniformToFill">
+                        <ImageBrush.ImageSource>
+                            <BitmapImage
+                                         UriCachePolicy="Revalidate"
+                                         UriSource="pack://application:,,,/Assets/Images/no-image.jpg"/>
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
                 </Border.Background>
             </Border>
 
+            <Grid x:Name="DownloadingContainer" Visibility="{Binding Path=IsDownloading, Converter={StaticResource InvBoolToVis}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding Path=PercentCompletion, Converter={StaticResource PercentWidthConverter}}" />
+                    <ColumnDefinition Width="{Binding Path=PercentCompletion, Converter={StaticResource PercentWidthConverter}, ConverterParameter=Remainder}" />
+                </Grid.ColumnDefinitions>
 
-            <Grid>
+                <Rectangle Grid.Column="0" />
+
+                <Rectangle Grid.Column="1">
+                    <Rectangle.Fill>
+                       <SolidColorBrush Color="Black" Opacity="0.6" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+
+            <Grid x:Name="ActionsContainer" Visibility="{Binding Path=IsDownloading, Converter={StaticResource InvBoolToVis}, ConverterParameter=Inverted}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="auto" />
@@ -94,7 +126,8 @@
                         Margin="2"
                         Padding="0"
                         Icon="Empty"
-                        Appearance="Secondary">
+                        Appearance="Secondary"
+                        Click="SynchronizeClicked">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -106,7 +139,7 @@
                                 Symbol="SaveSync20"
                                 Filled="True"/>
 
-                            <Label Grid.Row="1" FontSize="12" Content="Sync (2.3 MB)" />
+                            <Label Grid.Row="1" FontSize="12" Content="{Binding Path=PresetData.Size, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource ByteSizeConverter}, ConverterParameter=MiB}" ContentStringFormat="Sync ({0} MiB)" />
                         </Grid>
                     </wpfui:Button>
                 </Grid>

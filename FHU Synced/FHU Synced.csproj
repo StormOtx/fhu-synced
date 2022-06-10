@@ -5,12 +5,19 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>FHU_Synced</RootNamespace>
     <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ApplicationIcon>Assets\Icon\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Assets\Images\launcher-bg.png" />
     <None Remove="Assets\Images\logo.png" />
-    <None Remove="Assets\Images\unknown.png" />
+    <None Remove="Assets\Images\no-image.jpg" />
+    <None Remove="Assets\Images\no-thumbnail.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Icon\logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,12 +30,15 @@
   <ItemGroup>
     <Resource Include="Assets\Images\launcher-bg.png" />
     <Resource Include="Assets\Images\logo.png" />
-    <Resource Include="Assets\Images\unknown.png">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Assets\Images\no-image.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Settings\Preset.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Preset.settings</DependentUpon>
+    </Compile>
     <Compile Update="Settings\URL.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -37,6 +47,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Settings\Preset.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Preset.Designer.cs</LastGenOutput>
+    </None>
     <None Update="Settings\URL.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>URL.Designer.cs</LastGenOutput>

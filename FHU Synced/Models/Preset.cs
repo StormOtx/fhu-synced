@@ -11,9 +11,14 @@ namespace FHU_Synced.Models
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
+
         [JsonPropertyName("download_link")]
         public string DownloadLink { get; set; }
+
         [JsonPropertyName("thumbnail")]
         public string Thumbnail { get; set; }
+
+        [JsonPropertyName("size")]
+        public Int64 Size { get; set; }
     }
 }
