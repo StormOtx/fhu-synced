@@ -9,6 +9,6 @@ namespace FHU_Synced.Interfaces
 {
     public interface IPresetRepository
     {
-        public Task<Preset[]> GetPresets(DateTime? lastUpdated = null);
+        public Task<Preset[]?> GetPresets(DateTime? lastUpdated = null);
     }
 }

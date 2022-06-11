@@ -34,10 +34,22 @@ namespace FHU_Synced.Views.UserControls
                     typeof(PresetControl),
                     new FrameworkPropertyMetadata(OnPresetDataChangedCallBack));
 
+        public static readonly DependencyProperty RemoteProperty = DependencyProperty.Register(
+                    "Remote",
+                    typeof(bool),
+                    typeof(PresetControl),
+                    new UIPropertyMetadata(true));
+
         public Preset PresetData
         {
             get { return (Preset)GetValue(PresetProperty); }
             set { SetValue(PresetProperty, value); }
+        }
+
+        public bool Remote
+        {
+            get { return (bool)GetValue(RemoteProperty); }
+            set { SetValue(RemoteProperty, value); }
         }
 
         private static void OnPresetDataChangedCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -72,10 +84,54 @@ namespace FHU_Synced.Views.UserControls
             remove { RemoveHandler(SyncDoneEvent, value); }
         }
 
-        private async void SynchronizeClicked(object sender, RoutedEventArgs e)
+        public static readonly RoutedEvent PresetDeletedEvent = EventManager.RegisterRoutedEvent(
+            "PresetDeleted",
+            RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler),
+            typeof(PresetControl));
+
+        public event RoutedEventHandler PresetDeleted
+        {
+            add { AddHandler(PresetDeletedEvent, value); }
+            remove { RemoveHandler(PresetDeletedEvent, value); }
+        }
+
+        private async void SynchronizeClicked(object sender, RoutedEventArgs _)
         {
             if (this.ParentContainer.DataContext is AssetDownloaderVM vm)
-                await vm.DownloadAssetToFile(this.PresetData.DownloadLink, "test.fhp");
+            {
+                try
+                {
+                    string destination = Settings.Preset.Default.PresetsFolderLocation + "/" + this.PresetData.Name;
+                    await vm.DownloadAssetToFile(this.PresetData.DownloadLink, destination);
+
+                    RaiseEvent(new RoutedEventArgs(SyncDoneEvent, this));
+
+                    (Application.Current.MainWindow as MainWindow)?.RootSuccessSnackbar.Show("Downloaded Preset", $"Preset {this.PresetData.Name} has been added to your game!");
+                } catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Couldn't download preset");
+                    System.Diagnostics.Debug.WriteLine(e);
+                }
+            }
+        }
+
+        private void DeleteClicked(object sender, RoutedEventArgs _)
+        {
+            string fileAbsolutePath = Settings.Preset.Default.PresetsFolderLocation + "/" + this.PresetData.Name;
+
+            try
+            {
+                System.IO.File.Delete(fileAbsolutePath);
+                RaiseEvent(new RoutedEventArgs(PresetDeletedEvent, this));
+
+                (Application.Current.MainWindow as MainWindow)?.RootInfoSnackbar.Show("Deleted Preset", $"Preset {this.PresetData.Name} has been removed from your game");
+
+            } catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Couldn't delete file");
+                System.Diagnostics.Debug.WriteLine(e);
+            } 
         }
     }
 }

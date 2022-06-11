@@ -10,15 +10,15 @@ namespace FHU_Synced.Abstracts
 {
     public abstract class ANotifyPropertyChanged : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        virtual protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null )
+        virtual protected void NotifyPropertyChanged([CallerMemberName] string? propertyName = null )
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); 
         }
 
-        virtual protected bool AssignAndNotifyPropertyChanged<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        virtual protected bool AssignAndNotifyPropertyChanged<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if ((field == null && value != null) || (field != null && !field.Equals(value)))
             {

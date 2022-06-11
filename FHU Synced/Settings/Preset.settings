@@ -2,8 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FHU_Synced.Settings" GeneratedClassName="Preset">
   <Profiles />
   <Settings>
-    <Setting Name="PresetsFolderLocation" Type="System.String" Scope="Application">
+    <Setting Name="PresetsFolderLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\FeralHeart Unleashed\presets</Value>
+    </Setting>
+    <Setting Name="PresetsThumbnailsLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\FeralHeart Unleashed\presets\thumbnails</Value>
     </Setting>
   </Settings>
 </SettingsFile>

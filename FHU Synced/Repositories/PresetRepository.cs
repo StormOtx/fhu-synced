@@ -19,12 +19,12 @@ namespace FHU_Synced.Repositories
             this._client = new RestClient(options);
         }
 
-        public virtual async Task<Preset[]> GetPresets(DateTime? lastUpdated)
+        public virtual async Task<Preset[]?> GetPresets(DateTime? lastUpdated)
         {
             try
             {
                 var sinceQuery = lastUpdated != null ? "?since=" + new DateTimeOffset(lastUpdated.Value).ToUnixTimeSeconds().ToString() : "";
-                var response = await _client.GetJsonAsync<Preset[]>($"{Settings.URL.Default.GetAllPresetsTrailURL}{sinceQuery}");
+                var response = await _client.GetJsonAsync<Preset[]?>($"{Settings.URL.Default.GetAllPresetsTrailURL}{sinceQuery}");
 
                 return response;
             } catch (Exception e)

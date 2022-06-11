@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FHU_Synced.ViewModels;
+using FHU_Synced.Views.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +27,16 @@ namespace FHU_Synced.Views.Pages
             InitializeComponent();
         }
 
-        private void PresetControl_SyncClicked(object sender, RoutedEventArgs e)
+        private void PresetControl_SyncDone(object sender, RoutedEventArgs e)
         {
+            if (this.DataContext is PresetsVM vm && e.Source is PresetControl routedInst)
+                vm.PresetDownloaded(routedInst.PresetData.Name);
+        }
 
+        private void PresetControl_PresetDeleted(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext is PresetsVM vm && e.Source is PresetControl routedInst)
+                vm.DeletedPreset(routedInst.PresetData.Name);
         }
     }
 }

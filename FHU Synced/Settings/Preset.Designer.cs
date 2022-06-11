@@ -23,12 +23,27 @@ namespace FHU_Synced.Settings {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\FeralHeart Unleashed\\presets")]
         public string PresetsFolderLocation {
             get {
                 return ((string)(this["PresetsFolderLocation"]));
+            }
+            set {
+                this["PresetsFolderLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\FeralHeart Unleashed\\presets\\thumbnails")]
+        public string PresetsThumbnailsLocation {
+            get {
+                return ((string)(this["PresetsThumbnailsLocation"]));
+            }
+            set {
+                this["PresetsThumbnailsLocation"] = value;
             }
         }
     }

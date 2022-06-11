@@ -103,6 +103,30 @@
                                 VerticalAlignment="Top"
                                 FontSize="24"
                                 Navigation="{Binding ElementName=RootNavigation}" />
+                    
+                    <wpfui:Snackbar
+                        x:Name="RootSuccessSnackbar"
+                        Title="Success"
+                        Grid.Row="1"
+                        MaxWidth="600"
+                        Appearance="Success"
+                        Icon="ThumbLike24"
+                        IsShown="False"
+                        Message="Something worked successfully!"
+                        ShowCloseButton="True"
+                        Timeout="4500" />
+
+                    <wpfui:Snackbar
+                        x:Name="RootInfoSnackbar"
+                        Title="Info"
+                        Grid.Row="1"
+                        MaxWidth="600"
+                        Appearance="Secondary"
+                        Icon="Info24"
+                        IsShown="False"
+                        Message="Some useful information"
+                        ShowCloseButton="True"
+                        Timeout="4500" />
                 </Grid>
             </Border>
         </Grid>
