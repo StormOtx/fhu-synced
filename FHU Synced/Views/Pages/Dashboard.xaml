@@ -50,7 +50,15 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="24" HorizontalAlignment="Right" Orientation="Vertical">
-                        <wpfui:Button Width="175" Height="65" FontSize="22" IconFilled="True" Appearance="Secondary" Icon="PlayCircle24" Content="Play" />
+                        <wpfui:Button
+                            Width="175"
+                            Height="65"
+                            FontSize="22"
+                            IconFilled="True"
+                            Appearance="Secondary"
+                            Icon="PlayCircle24"
+                            Content="Play"
+                            Click="LaunchGame"/>
                         <CheckBox
                             HorizontalAlignment="Center"
                             Grid.Column="0"

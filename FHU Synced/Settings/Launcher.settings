@@ -2,8 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FHU_Synced.Settings" GeneratedClassName="Launcher">
   <Profiles />
   <Settings>
-    <Setting Name="GameAbsolutePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\FeralHeart Unleashed\fhugame.exe</Value>
+    <Setting Name="GameExecutableName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">fhugame.exe</Value>
+    </Setting>
+    <Setting Name="OGLauncherAbsolutePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\FeralHeart Unleashed\FeralHeart Unleashed.exe</Value>
+    </Setting>
+    <Setting Name="GamePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\FeralHeart Unleashed</Value>
     </Setting>
   </Settings>
 </SettingsFile>

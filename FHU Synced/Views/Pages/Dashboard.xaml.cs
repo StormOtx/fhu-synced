@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,25 @@ namespace FHU_Synced.Views.Pages
         public Dashboard()
         {
             InitializeComponent();
+        }
+
+        private void LaunchGame(object sender, RoutedEventArgs _)
+        {
+            try
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    WorkingDirectory = FHU_Synced.Settings.Launcher.Default.GamePath,
+                    FileName = System.IO.Path.Combine(FHU_Synced.Settings.Launcher.Default.GamePath, FHU_Synced.Settings.Launcher.Default.GameExecutableName)
+                };
+
+                Process.Start(startInfo);
+                Application.Current.Shutdown();
+            } catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Couldn't start game or launcher");
+                System.Diagnostics.Debug.WriteLine(e);
+            }
         }
     }
 }

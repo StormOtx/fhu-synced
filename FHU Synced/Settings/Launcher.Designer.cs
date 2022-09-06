@@ -25,13 +25,37 @@ namespace FHU_Synced.Settings {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\FeralHeart Unleashed\\fhugame.exe")]
-        public string GameAbsolutePath {
+        [global::System.Configuration.DefaultSettingValueAttribute("fhugame.exe")]
+        public string GameExecutableName {
             get {
-                return ((string)(this["GameAbsolutePath"]));
+                return ((string)(this["GameExecutableName"]));
             }
             set {
-                this["GameAbsolutePath"] = value;
+                this["GameExecutableName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\FeralHeart Unleashed\\FeralHeart Unleashed.exe")]
+        public string OGLauncherAbsolutePath {
+            get {
+                return ((string)(this["OGLauncherAbsolutePath"]));
+            }
+            set {
+                this["OGLauncherAbsolutePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\FeralHeart Unleashed")]
+        public string GamePath {
+            get {
+                return ((string)(this["GamePath"]));
+            }
+            set {
+                this["GamePath"] = value;
             }
         }
     }
